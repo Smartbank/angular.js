@@ -197,7 +197,9 @@ function Browser(window, document, $log, $sniffer) {
 
   function getCurrentState() {
     try {
-      return history.state;
+      //Fix problem with MS Edge crashing.
+      //return history.state;
+      return null;
     } catch (e) {
       // MSIE can reportedly throw when there is no state (UNCONFIRMED).
     }
