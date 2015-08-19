@@ -1,23 +1,16 @@
-AngularJS [![Build Status](https://travis-ci.org/angular/angular.js.svg?branch=master)](https://travis-ci.org/angular/angular.js)
+AngularJS Smartbank patch
 =========
 
-AngularJS lets you write client-side web applications as if you had a smarter browser.  It lets you
-use good old HTML (or HAML, Jade and friends!) as your template language and lets you extend HTML’s
-syntax to express your application’s components clearly and succinctly.  It automatically
-synchronizes data from your UI (view) with your JavaScript objects (model) through 2-way data
-binding. To help you structure your application better and make it easy to test, AngularJS teaches
-the browser how to do dependency injection and inversion of control.
+Repo to patch angular issues while waiting for upstream.
 
-Oh yeah and it helps with server-side communication, taming async callbacks with promises and 
-deferreds. It also makes client-side navigation and deeplinking with hashbang urls or HTML5 pushState a
-piece of cake. Best of all?? It makes development fun!
+Bumping version
+---------
+Use rebase to bump the angular version. Assumes `git remote add upstream git@github.com:angular/angular.js.git`
+Eg.
 
-* Web site: http://angularjs.org
-* Tutorial: http://docs.angularjs.org/tutorial
-* API Docs: http://docs.angularjs.org/api
-* Developer Guide: http://docs.angularjs.org/guide
-* Contribution guidelines: [CONTRIBUTING.md](https://github.com/angular/angular.js/blob/master/CONTRIBUTING.md)
-* Dashboard: http://dashboard.angularjs.org
+    git fetch upstream
+    git rebase --onto v1.4.5 v1.4.4
+    git push --force
 
 Building AngularJS
 ---------
@@ -26,20 +19,7 @@ Building AngularJS
     grunt package
 
 
-Running Tests
+Publishing patched version to Smartbank/bower-angular
 -------------
-To execute all unit tests, use:
-
-    grunt test:unit
-
-To execute end-to-end (e2e) tests, use:
-
-    grunt package
-    grunt test:e2e
-
-To learn more about the grunt tasks, run `grunt --help` and also read our
-[contribution guidelines](https://github.com/angular/angular.js/blob/master/CONTRIBUTING.md).
-
-
-[![Analytics](https://ga-beacon.appspot.com/UA-8594346-11/angular.js/README.md?pixel)](https://github.com/igrigorik/ga-beacon)
-
+    ./scripts/bower/publish.sh --action=prepare
+    ./scripts/bower/publish.sh --action=publish

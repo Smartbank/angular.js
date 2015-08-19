@@ -26,7 +26,7 @@ function prepare {
   for repo in "${REPOS[@]}"
   do
     echo "-- Cloning bower-$repo"
-    git clone git@github.com:angular/bower-$repo.git $TMP_DIR/bower-$repo
+    git clone --depth 10 git@github.com:Smartbank/bower-$repo.git $TMP_DIR/bower-$repo
   done
 
 
@@ -44,7 +44,7 @@ function prepare {
   done
 
   # move i18n files
-  cp $BUILD_DIR/i18n/*.js $TMP_DIR/bower-angular-i18n/
+  #cp $BUILD_DIR/i18n/*.js $TMP_DIR/bower-angular-i18n/
 
   # move csp.css
   cp $BUILD_DIR/angular-csp.css $TMP_DIR/bower-angular
@@ -80,7 +80,7 @@ function prepare {
 
     git add -A
 
-    echo "-- Committing and tagging bower-$repo"
+    echo "-- Committing and tagging bower-$repo $NEW_VERSION"
     git commit -m "v$NEW_VERSION"
     git tag v$NEW_VERSION
     cd $SCRIPT_DIR
@@ -94,13 +94,13 @@ function publish {
     cd $TMP_DIR/bower-$repo
     git push origin master
     git push origin v$NEW_VERSION
-
-    # don't publish every build to npm
-    if [ "${NEW_VERSION/+sha}" = "$NEW_VERSION" ] ; then
-      echo "-- Publishing to npm as $DIST_TAG"
-      npm publish --tag=$DIST_TAG
-    fi
-
+  #
+  #   # don't publish every build to npm
+  #   if [ "${NEW_VERSION/+sha}" = "$NEW_VERSION" ] ; then
+  #     echo "-- Publishing to npm as $DIST_TAG"
+  #     npm publish --tag=$DIST_TAG
+  #   fi
+  #
     cd $SCRIPT_DIR
   done
 }
